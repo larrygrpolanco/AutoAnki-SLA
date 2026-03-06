@@ -1,0 +1,84 @@
+# AutoAnki Project Configuration
+# Package metadata and dependencies
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoanki"
+version = "0.1.0"
+description = "Generate pedagogically-structured Anki vocabulary decks from educational text"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "AutoAnki Contributors"}
+]
+keywords = ["anki", "flashcards", "language-learning", "spaced-repetition", "tts", "vocabulary"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Education :: Computer Aided Instruction (CAI)",
+]
+dependencies = [
+    "textual>=0.40",
+    "genanki>=0.13",
+    "openai>=1.0",
+    "pymupdf>=1.23",
+    "pydantic>=2.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "black>=23.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5",
+]
+
+[project.scripts]
+autoanki = "autoanki.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/autoanki"
+Documentation = "https://github.com/yourusername/autoanki/tree/main/docs"
+Repository = "https://github.com/yourusername/autoanki.git"
+Issues = "https://github.com/yourusername/autoanki/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+autoanki = ["prompts/*.txt"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "I", "W", "N", "D", "UP", "B", "C4", "SIM"]
+ignore = ["D100", "D104"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
