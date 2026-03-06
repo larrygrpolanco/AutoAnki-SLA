@@ -17,21 +17,6 @@ AutoAnki generates **five different flashcard types** for every vocabulary word,
 
 Each card uses a **unique example sentence**, giving you 5 distinct contextual encounters with every word—the research-backed minimum needed for stable vocabulary acquisition.
 
-## Why AutoAnki?
-
-### Research-Backed Design
-- **i+1 Comprehensible Input**: Every sentence contains only known words + the target word
-- **Retrieval Practice**: Active recall, not passive review
-- **Multi-Modal Learning**: Visual text + audio reinforcement
-- **Strategic Audio Placement**: Audio on back for recall cards, on front for listening cards
-
-### Features
-- 📄 **PDF & Text Input**: Extract vocabulary from textbook chapters, lessons, or word lists
-- 🎯 **Five Card Types Per Word**: Deep knowledge, not surface memorization
-- 🔊 **High-Quality TTS**: OpenAI GPT-4o-mini-TTS for natural pronunciation
-- 📝 **Vocabulary Editing**: Review and customize cards before export
-- 🎨 **Clean Anki Templates**: Mobile-responsive, night-mode compatible
-- 🗂️ **Project Management**: Organize multiple decks, resume anytime
 
 ## Quick Start
 
@@ -189,7 +174,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - Built with [Textual](https://textual.textualize.io/) for the TUI
 - Deck generation via [genanki](https://github.com/kerrickstaley/genanki)
 - TTS powered by [OpenAI](https://platform.openai.com/)
-- Inspired by research from Paul Nation, Stephen Krashen, and the spaced repetition community
 
 ---
 
