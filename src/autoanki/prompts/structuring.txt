@@ -1,0 +1,148 @@
+You are a JSON formatter. Convert the provided flashcard content into valid JSON matching the exact schema below.
+
+## Output Requirements
+
+- Output ONLY valid JSON. No markdown code fences (no ```json). No commentary. No explanations.
+- The JSON must exactly match the schema below.
+- Generate a unique UUID (v4) for each vocabulary entry's "id" field.
+- Ensure all required fields are present.
+
+## JSON Schema
+
+{
+  "schema_version": 1,
+  "source_info": {
+    "title": "string — descriptive title like 'Korean Chapter 9 - Sports'",
+    "source_language": "string — ISO language code, e.g. 'ko', 'es', 'ja', 'zh', 'ar'",
+    "target_language_name": "string — full language name, e.g. 'Korean'",
+    "level_description": "string — e.g. 'Beginner, Chapter 9'",
+    "available_vocabulary_context": "string — brief description of what vocabulary is available"
+  },
+  "vocabulary": [
+    {
+      "id": "string — UUID v4, e.g. 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'",
+      "target_word": "string — dictionary/base form of the word",
+      "target_word_romanization": "string — romanization if applicable, else empty string ''",
+      "english_translation": "string — concise English translation",
+      "part_of_speech": "string — e.g. 'noun', 'verb', 'adjective', 'adverb'",
+      "category": "string — thematic category",
+      "notes": "string — empty string '' unless there is a specific note",
+
+      "card_1_recognition": {
+        "sentence_target": "string — sentence with <b> tags around target word",
+        "sentence_target_highlight": "string — same as sentence_target (sentence with <b> tags)",
+        "sentence_english": "string — English translation of the sentence"
+      },
+
+      "card_2_cloze": {
+        "sentence_cloze": "string — sentence with {{c1::word}} syntax, e.g. '저는 {{c1::수영}}을 해요.'",
+        "sentence_english": "string — English translation of the complete sentence",
+        "english_hint": "string — English translation of the target word, e.g. 'swimming'"
+      },
+
+      "card_3_production": {
+        "sentence_target": "string — sentence in target language, no highlighting needed",
+        "sentence_english": "string — English translation"
+      },
+
+      "card_4_comprehension": {
+        "sentence_target": "string — plain sentence, NO highlighting",
+        "sentence_english": "string — English translation",
+        "word_in_sentence_highlight": "string — same sentence WITH <b> tags around target word",
+        "word_translation_in_context": "string — how the word translates in this specific sentence"
+      },
+
+      "card_5_listening": {
+        "sentence_target": "string — plain sentence, NO highlighting",
+        "sentence_english": "string — English translation",
+        "word_in_sentence_highlight": "string — same sentence WITH <b> tags around target word",
+        "word_translation_in_context": "string — how the word translates in this specific sentence"
+      },
+
+      "audio_queries": {
+        "word_isolated": "string — the word in dictionary form, clean target language only",
+        "sentence_1": "string — Sentence 1 text, NO HTML tags, NO English",
+        "sentence_2": "string — Sentence 2 complete text (cloze word revealed), NO {{c1::}} syntax, NO HTML, NO English",
+        "sentence_3": "string — Sentence 3 text, NO HTML tags, NO English",
+        "sentence_4": "string — Sentence 4 text, NO HTML tags, NO English",
+        "sentence_5": "string — Sentence 5 text, NO HTML tags, NO English"
+      }
+    }
+  ]
+}
+
+## Example Output
+
+{
+  "schema_version": 1,
+  "source_info": {
+    "title": "Korean Lesson 5 - Shopping",
+    "source_language": "ko",
+    "target_language_name": "Korean",
+    "level_description": "Beginner, Chapter 5",
+    "available_vocabulary_context": "Words from chapters 1-5 may be used in example sentences."
+  },
+  "vocabulary": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "target_word": "사다",
+      "target_word_romanization": "",
+      "english_translation": "to buy",
+      "part_of_speech": "verb",
+      "category": "Shopping",
+      "notes": "",
+      "card_1_recognition": {
+        "sentence_target": "저는 가게에서 과일을 <b>사요</b>.",
+        "sentence_target_highlight": "저는 가게에서 과일을 <b>사요</b>.",
+        "sentence_english": "I buy fruit at the store."
+      },
+      "card_2_cloze": {
+        "sentence_cloze": "엄마는 토요일마다 빵을 {{c1::사요}}.",
+        "sentence_english": "My mom buys bread every Saturday.",
+        "english_hint": "to buy"
+      },
+      "card_3_production": {
+        "sentence_target": "우리는 어제 새 신발을 샀어요.",
+        "sentence_english": "We bought new shoes yesterday."
+      },
+      "card_4_comprehension": {
+        "sentence_target": "형은 매일 커피를 사요.",
+        "sentence_english": "My older brother buys coffee every day.",
+        "word_in_sentence_highlight": "형은 매일 커피를 <b>사요</b>.",
+        "word_translation_in_context": "buys"
+      },
+      "card_5_listening": {
+        "sentence_target": "저는 친구에게 줄 선물을 사고 싶어요.",
+        "sentence_english": "I want to buy a gift for my friend.",
+        "word_in_sentence_highlight": "저는 친구에게 줄 선물을 <b>사고 싶어요</b>.",
+        "word_translation_in_context": "want to buy"
+      },
+      "audio_queries": {
+        "word_isolated": "사다",
+        "sentence_1": "저는 가게에서 과일을 사요.",
+        "sentence_2": "엄마는 토요일마다 빵을 사요.",
+        "sentence_3": "우리는 어제 새 신발을 샀어요.",
+        "sentence_4": "형은 매일 커피를 사요.",
+        "sentence_5": "저는 친구에게 줄 선물을 사고 싶어요."
+      }
+    }
+  ]
+}
+
+## Critical Rules for audio_queries
+
+- sentence_2 must contain the COMPLETE sentence with the word revealed — NOT the {{c1::word}} format
+- All audio_query strings must be clean target-language text only
+- Remove ALL: <b> tags, </b> tags, {{c1::...}} syntax, English words, parenthetical hints
+- The audio queries are what gets sent to text-to-speech — they must be pronounceable target language
+
+## source_info
+
+Infer from the content:
+- title: descriptive, includes language and topic
+- source_language: ISO 639-1 code (ko=Korean, es=Spanish, ja=Japanese, zh=Chinese, ar=Arabic, fr=French, de=German, etc.)
+- target_language_name: full name of the language being learned
+- level_description: infer from the content complexity
+- available_vocabulary_context: brief description
+
+Now convert the input to JSON.

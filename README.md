@@ -1,180 +1,170 @@
 # AutoAnki
 
-A TUI-based tool that transforms educational text content into pedagogically-structured Anki flashcard decks with high-quality TTS audio. Built for serious language learners who want effective, research-backed vocabulary acquisition.
-
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-## What is AutoAnki?
-
-AutoAnki generates **five different flashcard types** for every vocabulary word, each targeting a distinct dimension of word knowledge:
-
-1. **Recognition** – See the word, recall the meaning
-2. **Cloze** – Fill in the blank from context + hint
-3. **Production** – See English, produce the target word
-4. **Sentence Comprehension** – Read full sentence, understand the word in context
-5. **Listening** – Hear the word, understand it
-
-Each card uses a **unique example sentence**, giving you 5 distinct contextual encounters with every word—the research-backed minimum needed for stable vocabulary acquisition.
-
-
-## Quick Start
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/autoanki.git
-cd autoanki
-
-# Install the package
-pip install .
-
-# Set up your API key
-cp .env.example .env
-# Edit .env and add your OpenAI API key
-```
-
-### Usage
-
-```bash
-# Launch the TUI
-autoanki
-```
-
-1. **Create a new project** – Name it and select your source file (PDF or TXT)
-2. **Review extracted text** – Preview and verify the content
-3. **Configure settings** – Choose which card types to generate, optionally upload past vocabulary
-4. **Generate cards** – The LLM creates 5 cards per word following pedagogical constraints
-5. **Review and edit** – Customize sentences, translations, or remove unwanted words
-6. **Export to Anki** – Generate audio and build your `.apkg` deck
-
-## Project Structure
-
-```
-autoanki/
-├── pyproject.toml           # Package configuration
-├── README.md               # This file
-├── .env.example            # API key template
-├── prompts/                # LLM prompt files
-│   ├── card_drafting.txt   # Step 1: Pedagogical drafting
-│   ├── card_review.txt     # Step 2: Quality review
-│   └── structuring.txt     # Step 3: JSON structuring
-├── src/
-│   └── autoanki/           # Main package
-│       ├── __init__.py
-│       ├── __main__.py     # Entry point
-│       ├── cli.py          # Command-line interface
-│       ├── core/           # Core logic
-│       │   ├── models.py   # Pydantic data models
-│       │   ├── parser.py   # PDF/text extraction
-│       │   ├── llm.py      # LLM pipeline
-│       │   ├── tts.py      # TTS generation
-│       │   ├── deck_builder.py  # Anki deck creation
-│       │   └── project.py  # Project management
-│       ├── templates/      # Anki templates
-│       │   └── anki_models.py
-│       └── tui/            # Textual UI
-│           ├── app.py
-│           └── screens/
-├── tests/                  # Test suite
-└── docs/                   # Documentation
-    ├── getting-started.md
-    └── anki-css-styling.md
-```
-
-## User Data
-
-AutoAnki stores your projects in `~/.autoanki/projects/`:
-
-```
-~/.autoanki/
-├── config.toml             # User preferences (optional)
-└── projects/
-    └── <project-name>/
-        ├── source.txt      # Extracted text
-        ├── past_vocab.txt  # Optional past vocabulary
-        ├── cards.json      # Flashcard data (source of truth)
-        ├── meta.json       # Project metadata
-        ├── audio/          # Generated MP3 files
-        └── output/         # Final .apkg files
-```
-
-## Documentation
-
-- [Getting Started](docs/getting-started.md) – Step-by-step first-run guide
-- [Flashcard Philosophy](Flashcard-Philosophy.md) – Pedagogical rationale and design principles
-- [Anki CSS Styling](docs/anki-css-styling.md) – Card template customization guide
-- [Technical Plan](AutoAnki-SLA-technical-plan.md) – Implementation details and architecture
-
-## Requirements
-
-- Python 3.10+
-- OpenAI API key (for LLM and TTS)
-- Anki desktop or mobile app (to import .apkg files)
-
-## Pedagogical Foundation
-
-AutoAnki is built on established second language acquisition research:
-
-- **Nation (2013)**: 18 dimensions of word knowledge across form, meaning, and use
-- **Krashen's i+1**: Learners need 90–98% known vocabulary for acquisition
-- **Webb (2007)**: 8–12 encounters needed for stable mental representation
-- **Karpicke & Roediger (2008)**: Retrieval practice dramatically outperforms passive review
-- **Barcroft (2004)**: Multimodal presentation improves retention
-
-See [Flashcard-Philosophy.md](Flashcard-Philosophy.md) for detailed citations and rationale.
-
-## Card Types Explained
-
-### Card 1: Recognition
-**Front**: Target word + highlighted sentence  
-**Back**: English translation + audio  
-**Tests**: Can I recognize this word and know its meaning?
-
-### Card 2: Cloze (Contextual Recall)
-**Front**: Sentence with blank + English hint  
-**Back**: Revealed word + translation + audio  
-**Tests**: Can I produce the word from context + meaning?
-
-### Card 3: Production
-**Front**: English word only (no audio!)  
-**Back**: Target word + new sentence + audio  
-**Tests**: Can I recall the target word from English?
-
-### Card 4: Sentence Comprehension
-**Front**: Full sentence (no highlight)  
-**Back**: Highlighted word + translation + audio  
-**Tests**: Can I understand the word in natural context?
-
-### Card 5: Listening
-**Front**: Audio only (auto-plays)  
-**Back**: Full text + highlighted word + replay audio  
-**Tests**: Can I understand the spoken word?
-
-## Limitations & Constraints
-
-- **Input size**: ~15,000 characters maximum (chapter-sized chunks)
-- **Vocabulary only**: Grammar cards and dialogue cards are out of scope
-- **No romanization**: Target script only (develops reading fluency)
-- **No images**: Text + audio only
-
-These are intentional design choices, not technical limitations.
-
-## Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on code style, testing, and the pull request process.
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built with [Textual](https://textual.textualize.io/) for the TUI
-- Deck generation via [genanki](https://github.com/kerrickstaley/genanki)
-- TTS powered by [OpenAI](https://platform.openai.com/)
+A TUI tool that takes a PDF or text file and generates a high-quality Anki vocabulary deck with TTS audio. Built on SLA research: 5 card types per word, i+1 sentences, strategic audio placement.
 
 ---
 
-**Built for learners who want to actually acquire vocabulary, not just memorize it.**
+## Current Status
+
+**All 4 phases are built. Phase 1 (core pipeline) is verified working.**
+
+| Phase | Status | Description |
+|-------|--------|-------------|
+| 1 — Core Pipeline | **Done + Verified** | LLM pipeline → .apkg (no audio) |
+| 2 — TTS | Built, not yet tested | OpenAI TTS audio generation |
+| 3 — TUI | Built, not yet tested | Full 3-screen Textual interface |
+| 4 — Polish | Built | Error handling, entry point |
+
+**Next step: import `test_output.apkg` into Anki and verify cards look correct, then test TTS (`Phase 2`), then launch the TUI (`Phase 3`).**
+
+---
+
+## Setup
+
+```bash
+# Clone and enter the repo
+cd AutoAnki-SLA
+
+# Create a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# Install
+pip install -e .
+
+# Configure API key
+cp .env.example .env
+# Edit .env and add: OPENAI_API_KEY=sk-your-key-here
+```
+
+---
+
+## Usage
+
+### Launch the TUI
+```bash
+autoanki
+# or
+python -m autoanki
+```
+
+The app is 3 screens:
+1. **Input** — pick your source file (Browse button), optional past vocab file, hit Generate
+2. **Review** — see all found vocabulary words, select/deselect, choose card types, name your deck
+3. **Export** — TTS generates audio, deck builds, .apkg saved to current directory
+
+### Run without TUI (testing)
+```bash
+python -m tests.test_pipeline test.txt
+# Outputs: test_output.apkg and test_output.json
+```
+
+---
+
+## File Structure
+
+```
+src/autoanki/
+├── __init__.py
+├── __main__.py          # Entry point (loads .env, launches TUI)
+├── models.py            # Pydantic models (VocabEntry, AutoAnkiCards, etc.)
+├── parser.py            # PDF/text extraction (pymupdf + plain text)
+├── llm.py               # 3-step LLM pipeline (Draft → Review → Structure)
+├── tts.py               # OpenAI TTS, MD5-hash dedup, batch generation
+├── deck_builder.py      # genanki: 25-field note type, 5 card templates, CSS
+├── prompts/
+│   ├── card_drafting.txt    # Step 1: vocabulary extraction + sentence writing
+│   ├── card_review.txt      # Step 2: i+1 quality check
+│   └── structuring.txt      # Step 3: convert to JSON (includes full schema + example)
+└── tui/
+    ├── __init__.py
+    └── app.py           # All 3 screens + FileBrowserModal in one file
+tests/
+└── test_pipeline.py     # Phase 1 smoke test (no TUI, no audio)
+```
+
+---
+
+## The 5 Card Types
+
+Each vocabulary word generates 5 cards from a single note, each with a unique example sentence:
+
+| Card | Tests | Front | Back |
+|------|-------|-------|------|
+| 1 Recognition | See word → know meaning | Word + highlighted sentence | English + audio |
+| 2 Cloze | Know meaning → produce word | Sentence with `[...]` + hint | Full sentence + audio |
+| 3 Production | English → target word | English only (no audio) | Word + sentence + audio |
+| 4 Comprehension | Read sentence → understand | Plain sentence | Translation + audio |
+| 5 Listening | Hear sentence → understand | Auto-play audio | Written sentence + audio |
+
+---
+
+## Key Implementation Notes
+
+### Cloze Card Display Fix
+`{{c1::word}}` syntax only works in Anki's built-in Cloze note type. In our custom note type it renders as literal text. Fixed in `deck_builder.py`:
+- `Sentence2Blank`: `{{c1::운동}}` → `<b>[...]</b>` (shown on front)
+- `Sentence2Full`: `{{c1::운동}}` → `<b>운동</b>` (shown on back)
+
+### Card Type Filtering
+The genanki `Model` is built dynamically with only the templates the user selected. Anki only generates cards for included templates — no empty/suppressed cards.
+
+### LLM Pipeline
+- Step 1 (temperature 0.7): extract vocab + write 5 sentences per word
+- Step 2 (temperature 0.3): QA review against i+1 rule
+- Step 3 (temperature 0, `json_object` mode): convert to validated JSON, retry once on failure
+
+### Audio Dedup
+Audio files are named by `MD5(text)[:12].mp3`. Same sentence across multiple runs = same filename = skipped (cached).
+
+---
+
+## Dependencies
+
+| Package | Purpose |
+|---------|---------|
+| `textual` | TUI framework |
+| `genanki` | Anki .apkg generation |
+| `openai` | LLM pipeline + TTS |
+| `pymupdf` | PDF text extraction |
+| `pydantic` | JSON schema validation |
+| `python-dotenv` | .env API key loading |
+
+---
+
+## Reference Documents
+
+| File | Purpose |
+|------|---------|
+| `AutoAnki-Technical-Plan-v2.md` | Architecture spec |
+| `Flashcard-Philosophy.md` | SLA pedagogy + card design rationale |
+| `anki-css-styling.md` | CSS + HTML templates for all 5 card types |
+| `flashcard-schema-template.json` | Example JSON output (used in LLM prompt) |
+| `Genanki-Docs.md` | genanki API reference |
+| `Textual-Basics-Docs.md` | Textual framework reference |
+| `test.txt` | Korean Chapter 9 (Sports) — used for testing |
+
+---
+
+## What to Test Next
+
+**Phase 1 — Verify .apkg in Anki** (free, do this first):
+```bash
+python -m tests.test_pipeline test.txt
+# Import test_output.apkg into Anki
+# Check: Card 2 shows [...] on front, word revealed on back
+# Check: Card 3 shows English only on front (no audio button)
+# Check: Card 5 shows audio play button on front
+```
+
+**Phase 2 — TTS** (costs ~$0.05 for 7 words × 6 audio files):
+```bash
+python -m tests.test_pipeline test.txt
+# test_pipeline doesn't call TTS — add a quick script or use the TUI
+```
+
+**Phase 3 — Full TUI**:
+```bash
+autoanki
+# Browse to test.txt → Generate → Review → Export Deck
+```
