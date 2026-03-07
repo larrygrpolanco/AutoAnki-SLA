@@ -14,7 +14,7 @@ def run_pipeline(
     text: str,
     past_vocab: list[str] | None = None,
     progress_callback: Callable[[str], None] | None = None,
-    model: str = "gpt-4o-mini",
+    model: str = "gpt-5-mini",
 ) -> AutoAnkiCards:
     client = OpenAI()
 
@@ -44,8 +44,7 @@ def run_pipeline(
                 "content": f"Vocabulary context: {vocab_context}\n\nSource text:\n{text}",
             },
         ],
-        temperature=0.7,
-        max_tokens=4096,
+        max_completion_tokens=4096,
     )
     step1_output = step1_response.choices[0].message.content
 
@@ -63,8 +62,7 @@ def run_pipeline(
                 ),
             },
         ],
-        temperature=0.3,
-        max_tokens=4096,
+        max_completion_tokens=4096,
     )
     step2_output = step2_response.choices[0].message.content
 
@@ -79,8 +77,7 @@ def run_pipeline(
                 {"role": "user", "content": step2_output},
             ],
             response_format={"type": "json_object"},
-            temperature=0,
-            max_tokens=4096,
+            max_completion_tokens=4096,
         )
         raw_json = step3_response.choices[0].message.content
         try:
