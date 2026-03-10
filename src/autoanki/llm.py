@@ -14,7 +14,7 @@ def run_pipeline(
     text: str,
     past_vocab: list[str] | None = None,
     progress_callback: Callable[[str], None] | None = None,
-    model: str = "gpt-5-mini",
+    model: str = "gpt-4o-mini",
 ) -> AutoAnkiCards:
     client = OpenAI()
 

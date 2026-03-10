@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "source_info": {
+    "title": "Korean Lesson 5 - Shopping",
+    "source_language": "ko",
+    "target_language_name": "Korean",
+    "level_description": "Beginner, Chapter 5",
+    "available_vocabulary_context": "Words from chapters 1-5 may be used in example sentences. Basic universally-known Korean words (pronouns, common verbs like 가다/오다/먹다/하다, basic nouns like 사람/집/학교) are also permitted."
+  },
+  "vocabulary": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "target_word": "사다",
+      "target_word_romanization": "",
+      "english_translation": "to buy",
+      "part_of_speech": "verb",
+      "category": "Shopping",
+      "notes": "",
+      "generate_audio": true,
+
+      "card_1_recognition": {
+        "sentence_target": "저는 가게에서 과일을 사요.",
+        "sentence_target_highlight": "저는 가게에서 과일을 <b>사요</b>.",
+        "sentence_english": "I buy fruit at the store."
+      },
+
+      "card_2_cloze": {
+        "sentence_cloze": "엄마는 토요일마다 빵을 {{c1::사요}}.",
+        "sentence_english": "My mom buys bread every Saturday.",
+        "english_hint": "to buy"
+      },
+
+      "card_3_production": {
+        "sentence_target": "우리는 어제 새 신발을 샀어요.",
+        "sentence_english": "We bought new shoes yesterday."
+      },
+
+      "card_4_comprehension": {
+        "sentence_target": "형은 매일 커피를 사요.",
+        "sentence_english": "My older brother buys coffee every day.",
+        "word_in_sentence_highlight": "형은 매일 커피를 <b>사요</b>.",
+        "word_translation_in_context": "buys"
+      },
+
+      "card_5_listening": {
+        "sentence_target": "저는 친구에게 줄 선물을 사고 싶어요.",
+        "sentence_english": "I want to buy a gift for my friend.",
+        "word_in_sentence_highlight": "저는 친구에게 줄 선물을 <b>사고 싶어요</b>.",
+        "word_translation_in_context": "want to buy"
+      },
+
+      "audio_queries": {
+        "word_isolated": "사다",
+        "sentence_1": "저는 가게에서 과일을 사요.",
+        "sentence_2": "엄마는 토요일마다 빵을 사요.",
+        "sentence_3": "우리는 어제 새 신발을 샀어요.",
+        "sentence_4": "형은 매일 커피를 사요.",
+        "sentence_5": "저는 친구에게 줄 선물을 사고 싶어요."
+      }
+    },
+    {
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "target_word": "비싸다",
+      "target_word_romanization": "",
+      "english_translation": "to be expensive",
+      "part_of_speech": "adjective",
+      "category": "Shopping",
+      "notes": "",
+      "generate_audio": true,
+
+      "card_1_recognition": {
+        "sentence_target": "이 가방은 너무 비싸요.",
+        "sentence_target_highlight": "이 가방은 너무 <b>비싸요</b>.",
+        "sentence_english": "This bag is too expensive."
+      },
+
+      "card_2_cloze": {
+        "sentence_cloze": "서울에서 집이 아주 {{c1::비싸요}}.",
+        "sentence_english": "Houses in Seoul are very expensive.",
+        "english_hint": "to be expensive"
+      },
+
+      "card_3_production": {
+        "sentence_target": "그 식당은 비싸지만 맛있어요.",
+        "sentence_english": "That restaurant is expensive but delicious."
+      },
+
+      "card_4_comprehension": {
+        "sentence_target": "요즘 과일이 비싸요.",
+        "sentence_english": "These days, fruit is expensive.",
+        "word_in_sentence_highlight": "요즘 과일이 <b>비싸요</b>.",
+        "word_translation_in_context": "is expensive"
+      },
+
+      "card_5_listening": {
+        "sentence_target": "이 옷은 비싸서 못 사요.",
+        "sentence_english": "These clothes are expensive so I can't buy them.",
+        "word_in_sentence_highlight": "이 옷은 <b>비싸서</b> 못 사요.",
+        "word_translation_in_context": "is expensive (so)"
+      },
+
+      "audio_queries": {
+        "word_isolated": "비싸다",
+        "sentence_1": "이 가방은 너무 비싸요.",
+        "sentence_2": "서울에서 집이 아주 비싸요.",
+        "sentence_3": "그 식당은 비싸지만 맛있어요.",
+        "sentence_4": "요즘 과일이 비싸요.",
+        "sentence_5": "이 옷은 비싸서 못 사요."
+      }
+    }
+  ]
+}

@@ -1,5 +1,4 @@
 import sys
-from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -19,9 +18,8 @@ def main() -> None:
         )
         sys.exit(1)
 
-    from .tui.app import AutoAnkiApp
-    app = AutoAnkiApp()
-    app.run()
+    from .cli import run
+    run()
 
 
 if __name__ == "__main__":
