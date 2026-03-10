@@ -15,6 +15,7 @@ def run_pipeline(
     past_vocab: list[str] | None = None,
     progress_callback: Callable[[str], None] | None = None,
     model: str = "gpt-4o-mini",
+    language: str = "",
 ) -> AutoAnkiCards:
     client = OpenAI()
 
@@ -27,6 +28,11 @@ def run_pipeline(
     if past_vocab:
         word_list = ", ".join(past_vocab[:200])
         vocab_context += f" Previously learned vocabulary (may be used in example sentences): {word_list}."
+
+    # Build user message prefix
+    user_prefix = ""
+    if language:
+        user_prefix = f"Target language: {language}\n\n"
 
     # Load prompt files
     drafting_prompt = (PROMPTS_DIR / "card_drafting.txt").read_text(encoding="utf-8")
@@ -41,10 +47,10 @@ def run_pipeline(
             {"role": "system", "content": drafting_prompt},
             {
                 "role": "user",
-                "content": f"Vocabulary context: {vocab_context}\n\nSource text:\n{text}",
+                "content": f"{user_prefix}Vocabulary context: {vocab_context}\n\nSource text:\n{text}",
             },
         ],
-        max_completion_tokens=4096,
+        max_completion_tokens=8192,
     )
     step1_output = step1_response.choices[0].message.content
 
@@ -62,7 +68,7 @@ def run_pipeline(
                 ),
             },
         ],
-        max_completion_tokens=4096,
+        max_completion_tokens=8192,
     )
     step2_output = step2_response.choices[0].message.content
 
@@ -77,7 +83,7 @@ def run_pipeline(
                 {"role": "user", "content": step2_output},
             ],
             response_format={"type": "json_object"},
-            max_completion_tokens=4096,
+            max_completion_tokens=8192,
         )
         raw_json = step3_response.choices[0].message.content
         try:

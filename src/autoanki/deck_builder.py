@@ -59,7 +59,6 @@ ALL_TEMPLATES = {
 <hr id="answer">
 <div class="english">{{EnglishTranslation}}</div>
 <div class="english sentence">{{Sentence1English}}</div>
-{{AudioWord}}
 {{AudioSentence1}}""",
     },
     2: {
@@ -86,13 +85,12 @@ ALL_TEMPLATES = {
 <div class="target">{{TargetWord}}</div>
 <div class="sentence">{{Sentence3}}</div>
 <div class="english">{{Sentence3English}}</div>
-{{AudioWord}}
 {{AudioSentence3}}""",
     },
     4: {
         "name": "Comprehension",
         "qfmt": """<div class="card-type type-comprehension"></div>
-<div class="sentence text-left">{{Sentence4}}</div>""",
+<div class="sentence">{{Sentence4}}</div>""",
         "afmt": """{{FrontSide}}
 <hr id="answer">
 <div class="sentence">{{Sentence4Highlight}}</div>
@@ -104,7 +102,6 @@ ALL_TEMPLATES = {
         "name": "Listening",
         "qfmt": """<div class="card-type type-listening"></div>
 <div class="card-listening-front">
-  <div class="hint">Listen and understand</div>
   {{AudioSentence5}}
 </div>""",
         "afmt": """{{FrontSide}}
@@ -112,9 +109,7 @@ ALL_TEMPLATES = {
 <div class="sentence">{{Sentence5Highlight}}</div>
 <div class="context">{{Sentence5WordContext}}</div>
 <div class="english">{{Sentence5English}}</div>
-<div class="target mt-2">{{TargetWord}}</div>
-{{AudioWord}}
-{{AudioSentence5}}""",
+<div class="target mt-2">{{TargetWord}}</div>""",
     },
 }
 
@@ -278,8 +273,8 @@ hr {
 .card-listening-front {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 200px;
+  align-items: center;
+  padding: 10px 0;
 }
 
 .card-listening-front .replay-button {

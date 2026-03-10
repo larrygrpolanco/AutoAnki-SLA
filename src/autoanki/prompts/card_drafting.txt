@@ -6,10 +6,18 @@ Study the source text carefully. Identify the vocabulary words that a student ne
 
 ## Vocabulary Selection
 
-- Include all vocabulary words explicitly taught in the source material (words introduced with translations, listed in vocabulary sections, etc.)
+- Extract ALL vocabulary words explicitly taught in the source material — every word in a vocabulary list, every word presented with a translation, every word introduced with a definition. If the source has a vocabulary section, include EVERY word in it.
 - Include important words used repeatedly in the text that a learner at this level needs
-- Skip extremely basic words the learner certainly already knows
-- Aim for 8–20 words for a typical chapter/lesson
+- Skip only the most basic function words the learner certainly already knows (e.g., "I", "a", "the")
+- When in doubt whether to include a word, INCLUDE IT — the user will review and deselect any they don't need
+- It is always better to extract too many words than too few
+- Do NOT impose an upper limit on the number of words; extract as many as the source teaches
+
+**Expressions and functional chunks (secondary, use when vocabulary is sparse):**
+If the source teaches relatively few standalone vocabulary words, look for fixed expressions or grammar patterns that function like learnable chunks — items with a clear, single meaning that can be memorized and used like a vocabulary word. Good candidates:
+- Fixed phrases with a unified meaning (e.g., "시간이 있다" = "have time", "시간이 없다" = "have no time")
+- Particles or endings being explicitly taught that have a clear lexical function (e.g., "부터" = "from/since", "-지 못하다" = "cannot")
+Do NOT include: abstract grammar patterns with no fixed meaning on their own, conjugation rules, or sentence structures that cannot stand alone as a learnable unit. The test: can this item be put naturally into example sentences as a target, and does it have one clear meaning the learner can memorize? If yes, include it. If the lesson already has many vocabulary words, prioritize those and skip marginal expressions.
 
 ## For Each Word, Provide
 

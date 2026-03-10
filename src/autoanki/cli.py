@@ -3,6 +3,7 @@ AutoAnki CLI — Rich + questionary based interface.
 Sequential flow: select file → LLM pipeline → pick words → pick card types → export.
 """
 
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -41,13 +42,14 @@ STEP_LABELS = {
 def run() -> None:
     """Main entry point — orchestrates the full CLI flow."""
     _show_welcome()
+    language = _get_target_language()
     source_path = _select_lesson_file()
     past_vocab = _select_past_vocab()
-    cards = _run_llm_pipeline(source_path, past_vocab)
+    cards = _run_llm_pipeline(source_path, past_vocab, language)
     selected_ids = _select_vocabulary(cards)
     selected_types = _select_card_types()
     deck_name = _confirm_deck_name(cards)
-    _export_deck(cards, selected_ids, selected_types, deck_name)
+    _export_deck(cards, selected_ids, selected_types, deck_name, language)
 
 
 # ---------------------------------------------------------------------------
@@ -66,6 +68,29 @@ def _show_welcome() -> None:
         )
     )
     console.print()
+
+
+# ---------------------------------------------------------------------------
+# Language selection
+# ---------------------------------------------------------------------------
+
+def _get_target_language() -> str:
+    """Return the target language from .env or prompt the user."""
+    lang = os.getenv("TARGET_LANGUAGE", "").strip()
+    if lang:
+        console.print(f"[dim]  Language: {lang} (from .env)[/dim]\n")
+        return lang
+
+    lang = questionary.text(
+        "What language are you studying? (e.g. Korean, Spanish, Japanese):",
+        validate=lambda x: True if x.strip() else "Please enter a language.",
+    ).ask()
+
+    if not lang:
+        sys.exit(0)
+
+    console.print()
+    return lang.strip()
 
 
 # ---------------------------------------------------------------------------
@@ -182,7 +207,7 @@ def _select_past_vocab() -> list[str]:
 # Step 4: LLM pipeline
 # ---------------------------------------------------------------------------
 
-def _run_llm_pipeline(source_path: str, past_vocab: list[str]) -> AutoAnkiCards:
+def _run_llm_pipeline(source_path: str, past_vocab: list[str], language: str = "") -> AutoAnkiCards:
     console.print("[bold]Step 3 — Generating Flashcards[/bold]")
     console.print("[dim]  This usually takes 1–3 minutes.[/dim]\n")
 
@@ -198,7 +223,7 @@ def _run_llm_pipeline(source_path: str, past_vocab: list[str]) -> AutoAnkiCards:
             status.update(f"[bold cyan]  {label}...")
 
         try:
-            cards = run_pipeline(text, past_vocab, progress_callback=progress_callback)
+            cards = run_pipeline(text, past_vocab, progress_callback=progress_callback, language=language)
         except Exception as e:
             console.print(f"\n[red]  Pipeline failed: {e}[/red]")
             sys.exit(1)
@@ -298,6 +323,7 @@ def _export_deck(
     selected_word_ids: set[str],
     selected_card_types: set[int],
     deck_name: str,
+    language: str = "",
 ) -> None:
     console.print("[bold]Step 6 — Exporting Deck[/bold]\n")
 
@@ -310,6 +336,13 @@ def _export_deck(
     total_audio = len(all_queries)
     tmp_dir = Path(tempfile.mkdtemp(prefix="autoanki_audio_"))
     audio_files: dict[str, str] = {}
+
+    tts_instructions = ""
+    if language:
+        tts_instructions = (
+            f"Speak naturally in {language} with a clear, native {language} accent "
+            f"and pronunciation. Use a calm, measured pace suitable for language learners."
+        )
 
     # TTS generation with progress bar
     with Progress(
@@ -331,6 +364,7 @@ def _export_deck(
                 queries=all_queries,
                 output_dir=tmp_dir,
                 progress_callback=on_audio_progress,
+                instructions=tts_instructions,
             )
         except Exception as e:
             console.print(f"[red]  TTS generation failed: {e}[/red]")

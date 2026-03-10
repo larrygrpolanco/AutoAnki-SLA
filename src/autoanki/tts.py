@@ -33,15 +33,17 @@ def generate_audio_batch(
     queries: dict[str, str],
     output_dir: Path,
     progress_callback: Callable[[int, int], None] | None = None,
-    tts_model: str = "tts-1",
-    voice: str = "alloy",
+    tts_model: str = "gpt-4o-mini-tts",
+    voice: str = "coral",
     delay: float = 1.0,
+    instructions: str = "",
 ) -> dict[str, str]:
     """
     Generate TTS audio for a batch of text queries.
 
     queries: dict of key → text_to_speak
     output_dir: directory to save .mp3 files
+    instructions: optional TTS instructions (e.g. accent/tone guidance for gpt-4o-mini-tts)
 
     Returns dict of key → filename (basename only, e.g. "abc123def456.mp3").
     Empty string means generation failed for that entry.
@@ -69,11 +71,10 @@ def generate_audio_batch(
             skipped += 1
         else:
             try:
-                response = client.audio.speech.create(
-                    model=tts_model,
-                    voice=voice,
-                    input=text,
-                )
+                kwargs = dict(model=tts_model, voice=voice, input=text)
+                if instructions:
+                    kwargs["instructions"] = instructions
+                response = client.audio.speech.create(**kwargs)
                 response.stream_to_file(str(filepath))
                 results[key] = filename
                 time.sleep(delay)
