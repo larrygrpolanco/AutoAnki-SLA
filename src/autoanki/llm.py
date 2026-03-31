@@ -50,7 +50,6 @@ def run_pipeline(
                 "content": f"{user_prefix}Vocabulary context: {vocab_context}\n\nSource text:\n{text}",
             },
         ],
-        max_completion_tokens=8192,
     )
     step1_output = step1_response.choices[0].message.content
 
@@ -68,7 +67,6 @@ def run_pipeline(
                 ),
             },
         ],
-        max_completion_tokens=8192,
     )
     step2_output = step2_response.choices[0].message.content
 
@@ -83,7 +81,6 @@ def run_pipeline(
                 {"role": "user", "content": step2_output},
             ],
             response_format={"type": "json_object"},
-            max_completion_tokens=8192,
         )
         raw_json = step3_response.choices[0].message.content
         try:
