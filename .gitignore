@@ -209,3 +209,6 @@ __marimo__/
 # AutoAnki generated files
 *.apkg
 test_output.*
+
+# macOS
+.DS_Store
